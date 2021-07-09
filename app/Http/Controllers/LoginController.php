@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
-use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -14,7 +12,7 @@ class LoginController extends Controller
     {
         $data = $request->validated();
 
-        if(!AuthService::attempt($data))
+        if(!Auth::attempt($data))
             return response(['wrong email or password using auth service']);
 
         $access_token = Auth::user()->createToken('authToken')->accessToken;
